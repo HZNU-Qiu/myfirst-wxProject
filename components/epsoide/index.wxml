@@ -5,14 +5,6 @@
   }
   module.exports.format = format
 </wxs>
-<!-- <view>
-<text>No.</text>
-<!-- <text>{{_index}}</text> -->
-<!-- <text>{{m1.format(index)}}</text>
-<text>|</text>
-<text>{{month}}</text>
-<text>{{year}}</text>
-</view> --> 
 
 <view class="container">
   <view class="index-container">

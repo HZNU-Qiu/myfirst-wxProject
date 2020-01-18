@@ -28,7 +28,6 @@ Page({
 
   // 自定义监听事件
   onLike: function(event) {
-    console.log(this.data)
     let behavior = event.detail.behavior
     likeModel.like(behavior, this.data.classic.id, this.data.classic.type)
   },
