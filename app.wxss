@@ -1,0 +1,7 @@
+/* 对page以下的所有组件进行样式设计 */
+page {
+  /* 默认字体 */
+  font-family: "Times New Roman";
+  /* 默认大小 */
+  font-size: 32rpx;
+}
