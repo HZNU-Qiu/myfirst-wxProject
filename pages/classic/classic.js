@@ -9,7 +9,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    classic: null
+    classic: null,
+    latest: true,
+    first: false,
+    likeCount: 0,
+    likeStatus: false
   },
 
   /**
@@ -21,7 +25,9 @@ Page({
       // setData(传入一个js对象),绑定后wxml 又可以通过组件属性传入到组件内部
       // 注意！！！ setData的作用是data的定义/更新，其实不用setdata，wxml也可以获取到data对象里的参数
       this.setData({
-        classic: res  
+        classic: res,
+        likeCount: res.fav_nums,
+        likeStatus: res.like_status
       })
     })
   },
@@ -32,52 +38,36 @@ Page({
     likeModel.like(behavior, this.data.classic.id, this.data.classic.type)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  onNext: function(event) {
+    this._updateClassic('next')
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
+  onPrevious: function(event) {
+    this._updateClassic('previous')
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  _updateClassic: function (nextOrPrevious) {
+    const index = this.data.classic.index
+    classicModel.getClassic(index, nextOrPrevious, (res) => {
+      // 这里需要获取是否喜欢的状态
+      this._getLikeStatus(res.id, res.type)
+      this.setData({
+        classic: res,
+        latest: classicModel.isLatest(res.index),
+        first: classicModel.isFirst(res.index)
+      })
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  _getLikeStatus(artID, category) {
+    likeModel.getClassicLikeStatus(artID, category,
+      (res) => {
+        this.setData({
+          likeCount: res.fav_nums,
+          likeStatus: res.likeStatus
+        })        
+      }
+    )
   }
+
 })
