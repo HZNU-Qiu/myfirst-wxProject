@@ -1,19 +1,12 @@
-import { classicBeh } from '../classic-beh.js'
+// components/book/book.js
 Component({
-  /**
-   * 继承classicBeh
-   */
-  behaviors: [classicBeh],
   /**
    * 组件的属性列表
    */
   properties: {
-    
+    book: Object
   },
 
-  attached:function() {
-
-  },
   /**
    * 组件的初始数据
    */

@@ -32,8 +32,8 @@ Component({
    */
   data: {
     playing: false,
-    pauseSrc: '../images/player@pause.png',
-    playSrc: '../images/player@play.png'
+    pauseSrc: '../../images/player@pause.png',
+    playSrc: '../../images/player@play.png'
   },
 
   /**

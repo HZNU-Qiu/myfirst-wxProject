@@ -64,7 +64,7 @@ Page({
       (res) => {
         this.setData({
           likeCount: res.fav_nums,
-          likeStatus: res.likeStatus
+          likeStatus: res.like_status
         })        
       }
     )

@@ -60,3 +60,59 @@
 ### 自定义触发器以及自定义监听和激活
 在组件的method方法中可以使用this.triggerEvent(),使用监听事件可以使得使用组件的页面可以监听组件发生的事件并且获得相关的参数。用于与组件的通信。
 
+## 纯粹的回调函数/promise/async await
+
+- 纯粹的callback => 回调地狱 return
+- promise  支持多个异步等待合并 不需要层层传递callback
+- async await ES7 小程序 不支持
+
+```
+const promise = new Promise((resolve, reject) => {
+      // pending fulfilled rejected
+      // 进行中    已成功    已失败   凝固不可再变化了
+      //     resolve    reject
+      wx.getSystemInfo({
+        success: (res) => {
+          resolve(res)
+        },
+        fail: (error) => {
+          reject(error)
+        }
+      })
+    })
+
+    promise.then((res) => {
+      console.log(res)
+    }, (error) => {
+      console.log(error)
+    })
+```
+
+### 场景 依次调用三个API
+```
+// promise 的错误用法，与回调地狱无区别
+const hotList = bookModel.getHotList()
+    hotList.then(
+      res => {
+        console.log(res)
+        bookModel.getMyBookCount()
+          .then(res => {
+            console.log(res)
+          })
+      }
+    )
+
+// 正确写法
+bookModel.getHotList()
+    .then(res => {
+      console.log(res)
+      return bookModel.getMyBookCount()
+    })
+    .then(res => {
+      console.log(res)
+      return bookModel.getMyBookCount()
+    })
+    .then(res => {
+      console.log(res)
+    })
+```
