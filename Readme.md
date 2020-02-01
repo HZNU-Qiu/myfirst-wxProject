@@ -116,3 +116,41 @@ bookModel.getHotList()
       console.log(res)
     })
 ```
+
+## 实现页面跳转
+```
+wx.navigateTo({
+  url: ''
+})
+```
+### 在组件里实行页面跳转
+- 降低了组件的通用性
+- 但是很方便
+- 仅仅是服务于当前项目的项目组件，用到别的项目中就别再组件中写跳转逻辑了
+- **通用的方法的话可以在组建中实现自定义触发器，在页面中进行监听**
+
+## 组件插槽 <slot>
+- 应用场景：比如tag标签，有数据就显示没数据就不显示。
+使用插槽，在组件中预留可空字段的插槽
+- 插槽：可以从外部传入一个标签，一个组件可以有多个插槽
+
+组件使用插槽需要在组建index.js中启用插槽
+```
+ options: {
+    multipleSlots: true
+  },
+```
+在页面中使用组件，并且使用插槽。组件就必须写成**闭合标签**而不是单行标签，而且在待添加标签中添加‘slot’属性name对应组件中的name
+```
+// 组件wxml
+<view class="container">
+    <text>{{text}}</text>
+    <!-- slot插槽 可以通过外部传一个标签 -->
+    <slot name="after"></slot>
+</view>
+
+// 页面wxml
+<v-tag text="{{item.content}}">
+  <text slot="after">{{'+item.nums}}</text>
+</v-tag>
+```
