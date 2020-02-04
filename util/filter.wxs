@@ -1,0 +1,18 @@
+var format = function (text) {
+  // 如果传入的text为空，终止运行
+  if (!text) {
+    return
+  }
+  // 为什么是四个\ 因为\n在编码中会被编成‘\\n’
+  var req = getRegExp('\\\\n', 'g')
+  return text.replace(req, '\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+}
+
+var limit = function (array, length) {
+  return array.slice(0, length)
+}
+
+module.exports = {
+  format: format,
+  limit: limit
+}

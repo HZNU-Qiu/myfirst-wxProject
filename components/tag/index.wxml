@@ -1,4 +1,4 @@
-<view class="container">
+<view bind:tap="onTap" class="container tag-class ">
     <text>{{text}}</text>
     <!-- slot插槽 可以通过外部传一个标签 -->
     <slot name="after"></slot>
